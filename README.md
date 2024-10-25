@@ -1,6 +1,6 @@
-# Project Name
+# Supercovers
 
-Welcome to **Project Name**! This project is configured to run with Node.js 18 and Docker. Follow the instructions below to get started.
+Welcome to **Supercovers**! This project is configured to run with Node.js 18 and Docker. Follow the instructions below to get started.
 
 Make sure you have the following requirements installed:
 
