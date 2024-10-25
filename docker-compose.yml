@@ -1,0 +1,13 @@
+version: "2.4"
+
+services:
+  db:
+    container_name: SUPERCOVERS_DB
+    image: mysql:5
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=supercovers
+    volumes:
+      - ./db/:/var/lib/mysql
+    ports:
+      - 3306:3306

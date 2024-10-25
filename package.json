@@ -1,0 +1,10 @@
+{
+  "name": "supercovers",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "sh start.sh"
+  },
+  "author": "",
+  "license": "ISC"
+}
