@@ -10,8 +10,8 @@ Make sure you have the following requirements installed:
 
 ## Step 1 - Install dependencies
 
-- navigate to the `backend` folder and run the command `npm install`.
-- navigate to the `frontend` folder and run the command `npm install`.
+- navigate to the `backend` folder and run the command `yarn install`.
+- navigate to the `frontend` folder and run the command `yarn install`.
 
 ## Step 2 - Run project
 
