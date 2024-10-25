@@ -20,7 +20,3 @@ To start the project, use the command `npm start`.
 Once started, the application will be available at the address:
 
 [http://localhost:3000](http://localhost:3000)
-
-If you prefer to run the project in a Docker container, use the command `docker-compose up --build`.
-
-Access the application at: [http://localhost:3000](http://localhost:3000)
