@@ -1,0 +1,196 @@
+datasource db {
+  provider = "mysql"
+  url      = env("NEXT_PUBLIC_DATABASE_URL")
+  // shadowDatabaseUrl = env("NEXT_PUBLIC_SHADOW_DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum CoverStatus {
+  PENDING
+  APPROVED
+  DENIED
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  password      String?
+  isJudge       Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  deletedAt     DateTime?
+
+  artist    Artist?
+  favorites Favorite[]
+  playlists Playlist[]
+}
+
+model Artist {
+  id         String    @id @default(cuid())
+  slug       String    @unique
+  userId     String    @unique
+  about      String?   @db.Text
+  introVideo String?
+  facebook   String?
+  instagram  String?
+  twitter    String?
+  website    String?
+  level      String    @default("amateur")
+  createdAt  DateTime  @default(now())
+  deletedAt  DateTime?
+
+  videos      Video[]
+  user        User?        @relation(fields: [userId], references: [id])
+  artistViews ArtistView[]
+
+  @@index([slug, userId])
+}
+
+model ArtistView {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  artistId  String
+  ip        String
+
+  artist Artist @relation(fields: [artistId], references: [id])
+
+  @@index([artistId])
+}
+
+model Video {
+  id         String    @id @default(cuid())
+  createdAt  DateTime  @default(now())
+  platformId String
+  platform   String
+  artistId   String
+  coverId    String
+  deletedAt  DateTime?
+  videoTagId String?
+
+  artist         Artist          @relation(fields: [artistId], references: [id])
+  cover          Cover           @relation(fields: [coverId], references: [id])
+  featuredVideo  FeaturedVideo?
+  views          VideoView[]
+  favorites      Favorite[]
+  playlistVideos PlaylistVideo[]
+  tags           VideoTag?       @relation(fields: [videoTagId], references: [id])
+
+  @@unique([artistId, platform, platformId])
+  @@index([coverId])
+  @@index([artistId])
+}
+
+model VideoTag {
+  id                  String   @id @default(cuid())
+  songStyle           String
+  instrumentalOrVocal String
+  typeInstruments     String
+  formation           String
+  videoId             String   @unique
+  createdAt           DateTime @default(now())
+
+  video Video[]
+}
+
+model CoverArtist {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  imgUrl    String?
+  createdAt DateTime @default(now())
+
+  coverSongs CoverSong[]
+  covers     Cover[]
+}
+
+model CoverSong {
+  id            String   @id @default(cuid())
+  name          String
+  coverArtistId String
+  createdAt     DateTime @default(now())
+
+  coverArtist CoverArtist @relation(fields: [coverArtistId], references: [id])
+  covers      Cover[]
+
+  @@unique([coverArtistId, name], name: "coverArtistId_name")
+}
+
+model Cover {
+  id            String @id @default(cuid())
+  coverArtistId String
+  coverSongId   String
+
+  coverArtist CoverArtist @relation(fields: [coverArtistId], references: [id])
+  coverSong   CoverSong   @relation(fields: [coverSongId], references: [id])
+  videos      Video[]
+
+  @@unique([coverArtistId, coverSongId])
+}
+
+model VideoView {
+  id              String   @id @default(cuid())
+  ip              String
+  createdAt       DateTime @default(now())
+  videoId         String
+  artistId        String
+  coverArtistName String
+  coverSongName   String
+  songStyle       String
+
+  video Video? @relation(fields: [videoId], references: [id])
+
+  @@index([videoId,createdAt])
+  @@index([songStyle])
+  @@index([coverArtistName])
+  @@index([coverSongName])
+  @@index([artistId])
+}
+
+model FeaturedVideo {
+  id       String @id @default(cuid())
+  videoId  String @unique
+  position Int    @default(1)
+
+  video Video? @relation(fields: [videoId], references: [id])
+}
+
+model Favorite {
+  id       String @id @default(cuid())
+  videoId  String
+  userId   String
+  position Int
+
+  video Video? @relation(fields: [videoId], references: [id])
+  user  User?  @relation(fields: [userId], references: [id])
+
+  @@unique([userId, videoId])
+  @@index([videoId, userId])
+  @@index([userId])
+}
+
+model Playlist {
+  id          String @id @default(cuid())
+  name        String
+  description String
+  userId      String
+
+  user   User            @relation(fields: [userId], references: [id])
+  videos PlaylistVideo[]
+}
+
+model PlaylistVideo {
+  id         String @id @default(cuid())
+  videoId    String
+  playlistId String
+  position   Int
+
+  video    Video    @relation(fields: [videoId], references: [id])
+  playlist Playlist @relation(fields: [playlistId], references: [id])
+
+  @@unique([playlistId, videoId])
+  @@index([videoId, playlistId])
+  @@index([playlistId])
+}

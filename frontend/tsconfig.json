@@ -1,0 +1,42 @@
+{
+    "compilerOptions": {
+      "baseUrl": "src",
+      "target": "esnext",
+      "module": "esnext",
+      "allowJs": true,
+      "alwaysStrict": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "isolatedModules": true,
+      "removeComments": true,
+      "strict": true,
+      "jsx": "preserve",
+      "outDir": "dist",
+      "lib": [
+        "dom",
+        "es2017"
+      ],
+      "moduleResolution": "node",
+      "noFallthroughCasesInSwitch": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "resolveJsonModule": true,
+      "skipLibCheck": true,
+      "noEmit": true,
+      "strictNullChecks": false,
+      "incremental": true
+    },
+    "typeRoots": [
+      "../node_modules/@types",
+      "../@types"
+    ],
+    "exclude": [
+      "node_modules",
+      "dist"
+    ],
+    "include": [
+      "**/*.ts",
+      "**/*.tsx"
+    ]
+  }
+  
