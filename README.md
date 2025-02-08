@@ -1,6 +1,31 @@
-# Supercovers
+# Supercovers 🎵
 
-Welcome to **Supercovers**! This project is configured to run with Node.js 18 and Docker. Follow the instructions below to get started.
+Supercovers is a platform dedicated to celebrating music and talented artists who perform covers. Our goal is to provide a space where music fans can discover new interpretations and talents from around the world.
+
+🚀 **This project is in the MVP (Minimum Viable Product) phase** and is constantly evolving to provide the best possible experience!
+
+## ✨ Features
+
+- 📺 Watch YouTube videos of artists performing covers.
+- 🔍 Discover new talents and share music with friends and family.
+- 🎤 Allow artists to submit their videos following content guidelines.
+- 📊 Curation system to ensure the quality of presented content.
+
+## 🛠️ Technologies Used
+
+The project was developed using the following technologies and tools:
+
+- **Frontend**:
+  - Next.js
+
+- **Backend**:
+  - Nest.js
+  - Prisma.io
+    
+- **Other Tools**:
+  - Docker
+
+## 🏗️ How to Run the Project
 
 Make sure you have the following requirements installed:
 
